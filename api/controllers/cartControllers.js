@@ -57,7 +57,7 @@ const updateCart = async(req, res) => {
                 new: true, runValidators: true
             }
         )
-        if(updatedCart){
+        if(!updatedCart){
             return res.status(404).json({message: "Cart item is not found"})
         }
         res.status(200).json(updatedCart)
