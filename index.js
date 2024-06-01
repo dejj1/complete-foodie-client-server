@@ -34,7 +34,7 @@ mongoose
   app.post('/jwt', async(req, res)=>{
     const user = req.body;
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "1d"
+      expiresIn: "3h"
     })
     res.send({token})
   })
@@ -47,10 +47,14 @@ const menuRoutes = require("./api/routes/menuRoutes")
 const cartRoutes = require('./api/routes/cartRoutes')
 const userRoutes = require('./api/routes/userRoutes')
 const paymentRoutes = require('./api/routes/paymentRoutes')
+const adminStats = require('./api/routes/adminStats')
+const ordersStats = require('./api/routes/ordersStats')
 app.use("/menu", menuRoutes)
 app.use("/carts", cartRoutes)
 app.use('/users', userRoutes)
 app.use('/payments', paymentRoutes)
+app.use('/adminStats', adminStats)
+app.use('/ordersStats', ordersStats)
 
 // stripe payment routes
 app.post("/create-payment-intent", async (req, res) => {
