@@ -15,32 +15,32 @@ router.get("/", async (req, res) => {
   try {
     const result = await Payment.aggregate([
       {
-        $unwind: "$menuItems",
+        $unwind: '$menuItems',
       },
       {
         $lookup: {
-          from: "menus",
-          localField: "menuItems",
-          foreignfield: "_id",
-          as: "menuItemDetails",
+          from: 'menus',
+          localField: 'menuItems',
+          foreignField: '_id',
+          as: 'menuItemDetails',
         },
       },
       {
-        $unwind: "menuItemDetails",
+        $unwind: '$menuItemDetails',
       },
       {
         $group: {
-          _id: "$menuItemDetails.category",
-          quantity: { $sum: "$quantity" },
-          revenue: { $sum: "$price" },
+          _id: '$menuItemDetails.category',
+          quantity: { $sum: '$quantity' },
+          revenue: { $sum: '$price' },
         },
       },
       {
         $project: {
           _id: 0,
-          category: "$_id",
-          quantity: "$quantity",
-          revenue: "$revenue",
+          category: '$_id',
+          quantity: '$quantity',
+          revenue: '$revenue',
         },
       },
     ]);
