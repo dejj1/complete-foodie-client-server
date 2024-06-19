@@ -20,7 +20,11 @@ const createUser = async (req, res) => {
       return res.status(302).json({ message: "User already exists" });
     }
     const result = await User.create(user);
-    res.status(200).json(result);
+    return res.status(200).json({
+      message: "Successful!",
+      success: true,
+      data: result
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
