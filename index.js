@@ -31,10 +31,10 @@ mongoose
 
 
   // jwt authentication
-  app.post('/jwt', async(req, res)=>{
+  app.post('/jwt', (req, res)=>{
     const user = req.body;
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "3h"
+      expiresIn: "1h"
     })
     res.send({token})
   })

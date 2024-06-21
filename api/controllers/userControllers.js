@@ -30,6 +30,31 @@ const createUser = async (req, res) => {
   }
 };
 
+// sign in
+const loginUser = async(req, res) => {
+  const {email, password} = req.body;
+  try {
+    if(!email || !password){
+      throw new Error('Please provide email and password')
+    }
+    const user = await User.findOne({email});
+    if(!user){
+      throw new Error ("Invalid login details")
+    }
+    res.status(200).json({
+      status: "Success",
+      message: "Login Successful",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+     res.status(500).json({ message: error.message });
+  }
+
+
+}
+
 // delete a User
 const deleteUser = async (req, res) => {
   const userId = req.params.id;
@@ -87,6 +112,7 @@ const makeAdmin = async (req, res) => {
 module.exports = {
   getAllUsers,
   createUser,
+  loginUser,
   deleteUser,
   getAdmin,
   makeAdmin
